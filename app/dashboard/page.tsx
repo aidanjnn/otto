@@ -85,10 +85,12 @@ export default function DashboardPage() {
         )
     }
 
-    // Calculate efficiency percentage
+
+    // Calculate efficiency: (original - compressed) / original = tokens saved percentage
     const efficiencyPercent = briefing?.debug?.compression 
-        ? Math.round((1 - (briefing.debug.compression.output_tokens / briefing.debug.compression.original_input_tokens)) * 100)
+        ? Math.round(((briefing.debug.compression.original_input_tokens - briefing.debug.compression.output_tokens) / briefing.debug.compression.original_input_tokens) * 100)
         : 0
+
 
     // --- MAIN EDITORIAL LAYOUT ---
     return (
@@ -132,36 +134,133 @@ export default function DashboardPage() {
                     </div>
                 </header>
 
-                <main className="max-w-2xl mx-auto space-y-16">
+                <main className="max-w-4xl mx-auto space-y-6">
 
-                    {/* 2. The Narrative (The Core Story) - Enhanced spacing */}
-                    {briefing?.narrative ? (
-                        <article className="prose prose-lg dark:prose-invert prose-headings:font-serif prose-p:leading-relaxed prose-p:mb-6 prose-headings:mb-4 prose-headings:mt-8 first:prose-headings:mt-0 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-ul:my-6 prose-li:my-2">
-                            <ReactMarkdown>{briefing.narrative}</ReactMarkdown>
-                        </article>
-                    ) : (
-                        // Fallback if no narrative generated yet (old schema)
-                        <div className="text-center py-10 text-muted-foreground italic font-[family-name:var(--font-serif)]">
-                            Wait for the next generation to see your personalized story.
-                        </div>
-                    )}
+                    {/* Service Boxes Grid */}
+                    <div className="grid gap-4 md:grid-cols-2">
+                        {/* GitHub Box */}
+                        {briefing?.highlights?.filter((h: any) => h.type === 'github').length > 0 && (
+                            <div className="bg-card border rounded-xl p-5 space-y-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                        <Github className="w-5 h-5 text-primary" />
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <h2 className="text-base font-semibold">GitHub</h2>
+                                        <p className="text-xs text-muted-foreground">
+                                            {briefing.rollup?.github?.active_repos?.length || 0} active repos
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="space-y-3">
+                                    {briefing.highlights.filter((h: any) => h.type === 'github').map((highlight: any, idx: number) => (
+                                        <div key={idx} className="pl-3 border-l-2 border-primary/30 space-y-1">
+                                            <h3 className="font-medium text-sm">{highlight.title}</h3>
+                                            <p className="text-xs text-muted-foreground line-clamp-2">{highlight.detail}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
-                    <hr className="border-border/60 w-16 mx-auto" />
+                        {/* Calendar Box */}
+                        {briefing?.highlights?.filter((h: any) => h.type === 'calendar').length > 0 && (
+                            <div className="bg-card border rounded-xl p-5 space-y-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                                        <Calendar className="w-5 h-5 text-accent-foreground" />
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <h2 className="text-base font-semibold">Calendar</h2>
+                                        <p className="text-xs text-muted-foreground">
+                                            {briefing.rollup?.calendar?.today_count || 0} events today
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="space-y-3">
+                                    {briefing.highlights.filter((h: any) => h.type === 'calendar').map((highlight: any, idx: number) => (
+                                        <div key={idx} className="pl-3 border-l-2 border-accent space-y-1">
+                                            <div className="flex items-start justify-between gap-2">
+                                                <h3 className="font-medium text-sm flex-1">{highlight.title}</h3>
+                                                {highlight.urgency === 'high' && (
+                                                    <span className="px-1.5 py-0.5 text-[10px] bg-destructive/10 text-destructive rounded font-medium flex-shrink-0">
+                                                        Urgent
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <p className="text-xs text-muted-foreground line-clamp-2">{highlight.detail}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Email Box */}
+                        {briefing?.highlights?.filter((h: any) => h.type === 'email').length > 0 && (
+                            <div className="bg-card border rounded-xl p-5 space-y-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                        <Mail className="w-5 h-5 text-primary" />
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <h2 className="text-base font-semibold">Email</h2>
+                                        <p className="text-xs text-muted-foreground">
+                                            {briefing.rollup?.email?.unread_count || 0} unread
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="space-y-3">
+                                    {briefing.highlights.filter((h: any) => h.type === 'email').map((highlight: any, idx: number) => (
+                                        <div key={idx} className="pl-3 border-l-2 border-primary/30 space-y-1">
+                                            <h3 className="font-medium text-sm">{highlight.title}</h3>
+                                            <p className="text-xs text-muted-foreground line-clamp-2">{highlight.detail}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Messages/Other Box */}
+                        {briefing?.highlights?.filter((h: any) => h.type === 'messages' || !['github', 'calendar', 'email'].includes(h.type)).length > 0 && (
+                            <div className="bg-card border rounded-xl p-5 space-y-4 hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-10 w-10 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+                                        <Sparkles className="w-5 h-5 text-accent-foreground" />
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <h2 className="text-base font-semibold">Updates</h2>
+                                        <p className="text-xs text-muted-foreground">System notifications</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-3">
+                                    {briefing.highlights.filter((h: any) => h.type === 'messages' || !['github', 'calendar', 'email'].includes(h.type)).map((highlight: any, idx: number) => (
+                                        <div key={idx} className="pl-3 border-l-2 border-accent space-y-1">
+                                            <h3 className="font-medium text-sm">{highlight.title}</h3>
+                                            <p className="text-xs text-muted-foreground line-clamp-2">{highlight.detail}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <hr className="border-border/60 my-8" />
 
                     {/* 3. Deep Dive: Recommendations */}
                     {briefing?.recommendations?.length > 0 && (
-                        <section className="space-y-8">
+                        <section className="space-y-4">
                             <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Action Items</h3>
-                            <div className="space-y-6">
+                            <div className="space-y-3">
                                 {briefing.recommendations.map((rec: any, i: number) => (
-                                    <div key={i} className="group relative pl-6 border-l-2 border-primary/20 hover:border-primary transition-colors py-2">
-                                        <h4 className="font-medium text-foreground text-lg group-hover:text-primary transition-colors mb-3">
+                                    <div key={i} className="group relative pl-4 border-l-2 border-primary/20 hover:border-primary transition-colors py-2 bg-accent/30 rounded-r-lg pr-4">
+                                        <h4 className="font-medium text-foreground text-sm group-hover:text-primary transition-colors mb-2">
                                             {rec.action}
                                         </h4>
-                                        <ul className="space-y-2">
+                                        <ul className="space-y-1">
                                             {rec.steps?.map((step: string, j: number) => (
-                                                <li key={j} className="text-muted-foreground text-sm leading-relaxed">
-                                                    {step}
+                                                <li key={j} className="text-muted-foreground text-xs leading-relaxed flex items-start gap-2">
+                                                    <span className="text-primary mt-0.5">→</span>
+                                                    <span className="flex-1">{step}</span>
                                                 </li>
                                             ))}
                                         </ul>
