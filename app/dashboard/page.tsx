@@ -8,6 +8,13 @@ import { VoiceStatus } from '@/components/voice/VoiceStatus'
 import { VoiceOrbs } from '@/components/voice/VoiceOrbs'
 import { Send, RefreshCw, Settings, ChevronLeft, Search, FileText, Calendar, MessageSquare, Github, Mail, CheckCircle2, Clock, ArrowRight } from 'lucide-react'
 
+// Custom SVG icons for brands
+const SlackIcon = () => (
+    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+        <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+    </svg>
+)
+
 export default function DashboardPage() {
     const [query, setQuery] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -18,7 +25,6 @@ export default function DashboardPage() {
         e.preventDefault()
         if (!query.trim()) return
         setIsLoading(true)
-        // Simulate API call
         setTimeout(() => {
             setIsLoading(false)
             setQuery('')
@@ -41,21 +47,21 @@ export default function DashboardPage() {
             {/* Gradient Background */}
             <div className="absolute inset-0 bg-[#0a0a0a]">
                 {/* Left teal gradient waves */}
-                <div className="absolute left-0 top-0 w-1/3 h-full opacity-50">
-                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900/30 via-teal-800/10 to-transparent"></div>
+                <div className="absolute left-0 top-0 w-1/2 h-full opacity-60">
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900/40 via-teal-800/20 to-transparent"></div>
                     <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
                         <defs>
                             <linearGradient id="tealGradDash" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#115e59" stopOpacity="0.3" />
-                                <stop offset="100%" stopColor="#0d4f4f" stopOpacity="0.05" />
+                                <stop offset="0%" stopColor="#115e59" stopOpacity="0.4" />
+                                <stop offset="100%" stopColor="#0d4f4f" stopOpacity="0.1" />
                             </linearGradient>
                         </defs>
-                        {[...Array(15)].map((_, i) => (
+                        {[...Array(20)].map((_, i) => (
                             <path
                                 key={i}
-                                d={`M${i * 40} 0 Q${i * 40 + 20} ${500 + Math.sin(i) * 200} ${i * 40} 1000`}
+                                d={`M${i * 50} 0 Q${i * 50 + 25} ${500 + Math.sin(i) * 200} ${i * 50} 1000`}
                                 stroke="url(#tealGradDash)"
-                                strokeWidth="1.5"
+                                strokeWidth="2"
                                 fill="none"
                                 className="animate-wave"
                                 style={{ animationDelay: `${i * 0.1}s` }}
@@ -65,21 +71,21 @@ export default function DashboardPage() {
                 </div>
                 
                 {/* Right orange gradient waves */}
-                <div className="absolute right-0 top-0 w-1/3 h-full opacity-60">
-                    <div className="absolute inset-0 bg-gradient-to-l from-orange-600/20 via-orange-700/10 to-transparent"></div>
+                <div className="absolute right-0 top-0 w-1/2 h-full opacity-70">
+                    <div className="absolute inset-0 bg-gradient-to-l from-orange-600/30 via-orange-700/20 to-transparent"></div>
                     <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
                         <defs>
                             <linearGradient id="orangeGradDash" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#ea580c" stopOpacity="0.4" />
-                                <stop offset="100%" stopColor="#c2410c" stopOpacity="0.1" />
+                                <stop offset="0%" stopColor="#ea580c" stopOpacity="0.5" />
+                                <stop offset="100%" stopColor="#c2410c" stopOpacity="0.2" />
                             </linearGradient>
                         </defs>
-                        {[...Array(25)].map((_, i) => (
+                        {[...Array(30)].map((_, i) => (
                             <path
                                 key={i}
-                                d={`M${600 + i * 25} 0 Q${600 + i * 25 + 12} ${500 + Math.cos(i) * 250} ${600 + i * 25} 1000`}
+                                d={`M${800 + i * 30} 0 Q${800 + i * 30 + 15} ${500 + Math.cos(i) * 300} ${800 + i * 30} 1000`}
                                 stroke="url(#orangeGradDash)"
-                                strokeWidth="1"
+                                strokeWidth="1.5"
                                 fill="none"
                                 className="animate-wave-slow"
                                 style={{ animationDelay: `${i * 0.05}s` }}
@@ -87,12 +93,15 @@ export default function DashboardPage() {
                         ))}
                     </svg>
                 </div>
+
+                {/* Glassy overlay */}
+                <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
             </div>
 
             {/* Main Layout */}
             <div className="relative z-10 min-h-screen flex">
                 {/* Sidebar */}
-                <aside className="w-60 bg-[#141414]/80 backdrop-blur-md border-r border-white/5 flex flex-col">
+                <aside className="w-60 bg-[#141414]/60 backdrop-blur-md border-r border-white/5 flex flex-col">
                     {/* Workspace */}
                     <div className="p-3 flex items-center gap-2 border-b border-white/5">
                         <div className="w-6 h-6 rounded bg-gradient-to-br from-teal-500 to-orange-500 flex items-center justify-center text-white text-xs font-bold">
@@ -128,146 +137,122 @@ export default function DashboardPage() {
                     </div>
                 </aside>
 
-                {/* Main Content */}
-                <main className="flex-1 flex flex-col">
-                    {/* Header */}
-                    <header className="h-12 border-b border-white/5 bg-[#141414]/60 backdrop-blur-md flex items-center justify-between px-4">
-                        <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                            <span className="text-white text-sm">{currentDate}</span>
+                {/* Main Content - Centered */}
+                <main className="flex-1 flex flex-col items-center justify-center p-8">
+                    <div className="w-full max-w-2xl space-y-6">
+                        {/* Header */}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                <h1 className="text-xl font-semibold text-white">{currentDate}</h1>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <VoiceStatus status={voiceStatus} />
+                                <RefreshCw className="w-4 h-4 text-[#6b6b6b] cursor-pointer hover:text-white" />
+                            </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <VoiceStatus status={voiceStatus} />
-                            <RefreshCw className="w-4 h-4 text-[#6b6b6b] cursor-pointer hover:text-white" />
-                        </div>
-                    </header>
 
-                    {/* Content Area */}
-                    <div className="flex-1 overflow-auto p-6">
-                        <div className="max-w-2xl mx-auto">
-                            {/* Glassy Content Card */}
-                            <div className="backdrop-blur-xl bg-[#1a1a1a]/80 rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
-                                {/* Window Controls */}
-                                <div className="flex items-center gap-2 px-4 py-3 border-b border-white/5">
-                                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        {/* Summary */}
+                        <p className="text-[#9b9b9b] text-sm leading-relaxed">
+                            Good morning! You have <span className="text-white">2 emails</span> from Minimalcompany Gmail that need your review, 
+                            including a pressing matter regarding carrier issues piling up at The Minimal. 
+                            Additionally, there&apos;s a <span className="text-white">direct message</span> waiting for your response on Slack, 
+                            so be sure to check that as well.
+                        </p>
+
+                        {/* Insights */}
+                        <div className="space-y-3">
+                            {/* Email Insight */}
+                            <InsightItem 
+                                icon={<Mail className="w-4 h-4" />}
+                                title="Re: Andre - carrier issues piling up at The Minimal"
+                                subtitle="Follow up on Q4 shipping issues for process improvement"
+                                type="email"
+                            />
+
+                            {/* Slack DM Insight - Expanded */}
+                            <div className="bg-white/5 backdrop-blur-sm rounded-lg p-4 space-y-3 border border-white/5">
+                                <div className="flex items-start gap-3">
+                                    <div className="w-6 h-6 rounded bg-[#4A154B] flex items-center justify-center text-white">
+                                        <SlackIcon />
+                                    </div>
+                                    <div className="flex-1">
+                                        <h3 className="text-white font-medium">DM from Alex</h3>
+                                        <p className="text-[#6b6b6b] text-sm">Get attention approved by Apple today for shipping.</p>
+                                    </div>
                                 </div>
-
-                                {/* Briefing Content */}
-                                <div className="p-6 space-y-6">
-                                    {/* Header */}
-                                    <div className="flex items-start justify-between">
-                                        <div>
-                                            <div className="flex items-center gap-2 mb-2">
-                                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                                                <h1 className="text-xl font-semibold text-white">{currentDate}</h1>
-                                            </div>
-                                            <p className="text-[#9b9b9b] text-sm leading-relaxed">
-                                                Good morning! You have <span className="text-white">2 emails</span> from Minimalcompany Gmail that need your review, 
-                                                including a pressing matter regarding carrier issues piling up at The Minimal. 
-                                                Additionally, there&apos;s a <span className="text-white">direct message</span> waiting for your response on Slack, 
-                                                so be sure to check that as well.
-                                            </p>
-                                        </div>
+                                <p className="text-[#9b9b9b] text-sm pl-9">
+                                    You need to obtain approval from Apple for the attention so that shipping can proceed. This 
+                                    task is time-sensitive and needs to be completed today.
+                                </p>
+                                <div className="flex items-center gap-2 pl-9">
+                                    <Clock className="w-4 h-4 text-[#6b6b6b]" />
+                                    <span className="text-[#8a8a8a] text-sm">Get attention approved by Apple</span>
+                                </div>
+                                <div className="flex items-center justify-between pl-9 pt-2">
+                                    <div className="flex items-center gap-4">
+                                        <button className="text-green-500 text-sm font-medium hover:text-green-400">Done</button>
+                                        <button className="text-[#6b6b6b] text-sm hover:text-white">Ignore</button>
                                     </div>
-
-                                    {/* Insights */}
-                                    <div className="space-y-4">
-                                        {/* Email Insight */}
-                                        <InsightItem 
-                                            icon={<Mail className="w-4 h-4" />}
-                                            title="Re: Andre - carrier issues piling up at The Minimal"
-                                            subtitle="Follow up on Q4 shipping issues for process improvement"
-                                            type="email"
-                                        />
-
-                                        {/* Slack DM Insight - Expanded */}
-                                        <div className="bg-white/5 rounded-lg p-4 space-y-3">
-                                            <div className="flex items-start gap-3">
-                                                <div className="w-6 h-6 rounded bg-[#4A154B] flex items-center justify-center text-white text-xs">
-                                                    #
-                                                </div>
-                                                <div className="flex-1">
-                                                    <h3 className="text-white font-medium">DM from Alex</h3>
-                                                    <p className="text-[#6b6b6b] text-sm">Get attention approved by Apple today for shipping.</p>
-                                                </div>
-                                            </div>
-                                            <p className="text-[#9b9b9b] text-sm pl-9">
-                                                You need to obtain approval from Apple for the attention so that shipping can proceed. This 
-                                                task is time-sensitive and needs to be completed today.
-                                            </p>
-                                            <div className="flex items-center gap-2 pl-9">
-                                                <Clock className="w-4 h-4 text-[#6b6b6b]" />
-                                                <span className="text-[#8a8a8a] text-sm">Get attention approved by Apple</span>
-                                            </div>
-                                            <div className="flex items-center justify-between pl-9 pt-2">
-                                                <div className="flex items-center gap-4">
-                                                    <button className="text-green-500 text-sm font-medium hover:text-green-400">Done</button>
-                                                    <button className="text-[#6b6b6b] text-sm hover:text-white">Ignore</button>
-                                                </div>
-                                                <button className="flex items-center gap-1 text-[#6b6b6b] text-sm hover:text-white">
-                                                    View in Slack <ArrowRight className="w-3 h-3" />
-                                                </button>
-                                            </div>
-                                            <div className="pl-9 pt-2">
-                                                <input
-                                                    type="text"
-                                                    placeholder="Add a note or reminder..."
-                                                    className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-sm text-white placeholder:text-[#4b4b4b] focus:outline-none focus:border-white/20"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* Calendar Insight */}
-                                        <InsightItem 
-                                            icon={<Calendar className="w-4 h-4" />}
-                                            title="TikTok <> The Minimal?"
-                                            subtitle="Inquire about current TikTok campaigns for potential partnership"
-                                            type="calendar"
-                                        />
-
-                                        {/* GitHub Insight */}
-                                        <InsightItem 
-                                            icon={<Github className="w-4 h-4" />}
-                                            title="PR #142: Feature/voice-integration merged"
-                                            subtitle="3 new commits pushed to main branch"
-                                            type="github"
-                                        />
-                                    </div>
-
-                                    {/* Query Input */}
-                                    <div className="pt-4 border-t border-white/5">
-                                        <form onSubmit={handleSubmit} className="flex gap-3 items-center">
-                                            <MicButton
-                                                className="flex-shrink-0 w-10 h-10"
-                                                onTranscript={(text) => setQuery(text)}
-                                            />
-                                            <Input
-                                                value={query}
-                                                onChange={(e) => setQuery(e.target.value)}
-                                                placeholder="Ask Otto anything..."
-                                                className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-[#4b4b4b] h-10"
-                                                disabled={isLoading}
-                                            />
-                                            <Button 
-                                                type="submit" 
-                                                disabled={isLoading || !query.trim()}
-                                                size="icon"
-                                                className="bg-white text-[#191919] hover:bg-[#e0e0e0] h-10 w-10"
-                                            >
-                                                <Send className="w-4 h-4" />
-                                            </Button>
-                                        </form>
-                                    </div>
+                                    <button className="flex items-center gap-1 text-[#6b6b6b] text-sm hover:text-white">
+                                        View in Slack <ArrowRight className="w-3 h-3" />
+                                    </button>
+                                </div>
+                                <div className="pl-9 pt-2">
+                                    <input
+                                        type="text"
+                                        placeholder="Add a note or reminder..."
+                                        className="w-full bg-white/5 border border-white/10 rounded px-3 py-2 text-sm text-white placeholder:text-[#4b4b4b] focus:outline-none focus:border-white/20"
+                                    />
                                 </div>
                             </div>
+
+                            {/* Calendar Insight */}
+                            <InsightItem 
+                                icon={<Calendar className="w-4 h-4" />}
+                                title="TikTok <> The Minimal?"
+                                subtitle="Inquire about current TikTok campaigns for potential partnership"
+                                type="calendar"
+                            />
+
+                            {/* GitHub Insight */}
+                            <InsightItem 
+                                icon={<Github className="w-4 h-4" />}
+                                title="PR #142: Feature/voice-integration merged"
+                                subtitle="3 new commits pushed to main branch"
+                                type="github"
+                            />
+                        </div>
+
+                        {/* Query Input */}
+                        <div className="pt-4">
+                            <form onSubmit={handleSubmit} className="flex gap-3 items-center">
+                                <MicButton
+                                    className="flex-shrink-0 w-10 h-10"
+                                    onTranscript={(text) => setQuery(text)}
+                                />
+                                <Input
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    placeholder="Ask Otto anything..."
+                                    className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-[#4b4b4b] h-10"
+                                    disabled={isLoading}
+                                />
+                                <Button 
+                                    type="submit" 
+                                    disabled={isLoading || !query.trim()}
+                                    size="icon"
+                                    className="bg-white text-[#191919] hover:bg-[#e0e0e0] h-10 w-10"
+                                >
+                                    <Send className="w-4 h-4" />
+                                </Button>
+                            </form>
                         </div>
                     </div>
                 </main>
 
                 {/* Voice Agent Panel */}
-                <aside className="w-72 bg-[#0f0f10]/90 backdrop-blur-md border-l border-white/5 flex flex-col items-center justify-center">
+                <aside className="w-72 bg-[#0f0f10]/80 backdrop-blur-md border-l border-white/5 flex flex-col items-center justify-center">
                     <div className="flex-1 flex items-center justify-center">
                         <VoiceOrbs isSpeaking={isSpeaking} />
                     </div>
@@ -312,12 +297,12 @@ function InsightItem({ icon, title, subtitle, type }: { icon: React.ReactNode; t
     const bgColors: Record<string, string> = {
         email: 'bg-blue-600',
         calendar: 'bg-purple-600',
-        github: 'bg-gray-700',
+        github: 'bg-[#24292e]',
         slack: 'bg-[#4A154B]'
     }
 
     return (
-        <div className="flex items-start gap-3 py-2 hover:bg-white/5 rounded-lg px-2 -mx-2 cursor-pointer transition-colors">
+        <div className="flex items-start gap-3 py-3 px-3 hover:bg-white/5 rounded-lg cursor-pointer transition-colors border border-white/5 bg-white/[0.02] backdrop-blur-sm">
             <div className={`w-6 h-6 rounded flex items-center justify-center text-white ${bgColors[type] || 'bg-gray-600'}`}>
                 {icon}
             </div>
