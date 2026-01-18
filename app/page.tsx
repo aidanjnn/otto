@@ -11,86 +11,130 @@ export default function LoginPage() {
         router.push('/onboarding')
     }
 
+    const handleDashboard = () => {
+        router.push('/dashboard')
+    }
+
     return (
-        <div className="min-h-screen bg-[#191919] flex items-center justify-center">
-            <div className="w-full max-w-md p-8">
-                {/* Logo */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-white mb-2">Otto</h1>
-                    <p className="text-[#9b9b9b] text-lg">Your AI workflow assistant</p>
+        <div className="min-h-screen relative overflow-hidden">
+            {/* Gradient Background */}
+            <div className="absolute inset-0 bg-[#0a0a0a]">
+                {/* Left teal gradient waves */}
+                <div className="absolute left-0 top-0 w-1/2 h-full opacity-60">
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-900/40 via-teal-800/20 to-transparent"></div>
+                    <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#115e59" stopOpacity="0.4" />
+                                <stop offset="100%" stopColor="#0d4f4f" stopOpacity="0.1" />
+                            </linearGradient>
+                        </defs>
+                        {[...Array(20)].map((_, i) => (
+                            <path
+                                key={i}
+                                d={`M${i * 50} 0 Q${i * 50 + 25} ${500 + Math.sin(i) * 200} ${i * 50} 1000`}
+                                stroke="url(#tealGrad)"
+                                strokeWidth="2"
+                                fill="none"
+                                className="animate-wave"
+                                style={{ animationDelay: `${i * 0.1}s` }}
+                            />
+                        ))}
+                    </svg>
+                </div>
+                
+                {/* Right orange gradient waves */}
+                <div className="absolute right-0 top-0 w-1/2 h-full opacity-70">
+                    <div className="absolute inset-0 bg-gradient-to-l from-orange-600/30 via-orange-700/20 to-transparent"></div>
+                    <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#ea580c" stopOpacity="0.5" />
+                                <stop offset="100%" stopColor="#c2410c" stopOpacity="0.2" />
+                            </linearGradient>
+                        </defs>
+                        {[...Array(30)].map((_, i) => (
+                            <path
+                                key={i}
+                                d={`M${800 + i * 30} 0 Q${800 + i * 30 + 15} ${500 + Math.cos(i) * 300} ${800 + i * 30} 1000`}
+                                stroke="url(#orangeGrad)"
+                                strokeWidth="1.5"
+                                fill="none"
+                                className="animate-wave-slow"
+                                style={{ animationDelay: `${i * 0.05}s` }}
+                            />
+                        ))}
+                    </svg>
                 </div>
 
-                {/* Login Form */}
-                <div className="space-y-6">
-                    <div className="space-y-4">
-                        <Input
-                            type="email"
-                            placeholder="Enter your email"
-                            className="h-12 bg-[#2b2b2b] border-[#3d3d3d] text-white placeholder:text-[#6b6b6b] focus:border-[#5c5c5c] focus:ring-0"
-                        />
-                        <Input
-                            type="password"
-                            placeholder="Enter your password"
-                            className="h-12 bg-[#2b2b2b] border-[#3d3d3d] text-white placeholder:text-[#6b6b6b] focus:border-[#5c5c5c] focus:ring-0"
-                        />
+                {/* Glassy overlay */}
+                <div className="absolute inset-0 backdrop-blur-[1px] bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10 min-h-screen flex items-center justify-center">
+                <div className="w-full max-w-md p-8">
+                    {/* Logo */}
+                    <div className="text-center mb-12">
+                        <h1 className="text-4xl font-bold text-white mb-2">Otto</h1>
+                        <p className="text-[#9b9b9b] text-lg">Your AI workflow assistant</p>
                     </div>
 
-                    <div className="space-y-3">
-                        <Button
-                            onClick={handleAuth}
-                            className="w-full h-11 bg-white text-[#191919] hover:bg-[#e0e0e0] font-medium"
-                        >
-                            Log in
-                        </Button>
-                        <Button
-                            onClick={handleAuth}
-                            variant="outline"
-                            className="w-full h-11 bg-transparent border-[#3d3d3d] text-white hover:bg-[#2b2b2b] hover:text-white font-medium"
-                        >
-                            Sign up
-                        </Button>
-                    </div>
-
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-[#3d3d3d]"></div>
+                    {/* Login Form */}
+                    <div className="space-y-6 backdrop-blur-md bg-white/5 p-8 rounded-2xl border border-white/10">
+                        <div className="space-y-4">
+                            <Input
+                                type="email"
+                                placeholder="Enter your email"
+                                className="h-12 bg-[#2b2b2b]/80 border-[#3d3d3d] text-white placeholder:text-[#6b6b6b] focus:border-[#5c5c5c] focus:ring-0"
+                            />
+                            <Input
+                                type="password"
+                                placeholder="Enter your password"
+                                className="h-12 bg-[#2b2b2b]/80 border-[#3d3d3d] text-white placeholder:text-[#6b6b6b] focus:border-[#5c5c5c] focus:ring-0"
+                            />
                         </div>
-                        <div className="relative flex justify-center text-sm">
-                            <span className="px-4 bg-[#191919] text-[#6b6b6b]">or continue with</span>
+
+                        <div className="space-y-3">
+                            <Button
+                                onClick={handleAuth}
+                                className="w-full h-11 bg-white text-[#191919] hover:bg-[#e0e0e0] font-medium"
+                            >
+                                Log in
+                            </Button>
+                            <Button
+                                onClick={handleAuth}
+                                variant="outline"
+                                className="w-full h-11 bg-transparent border-[#3d3d3d] text-white hover:bg-[#2b2b2b] hover:text-white font-medium"
+                            >
+                                Sign up
+                            </Button>
                         </div>
+
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <div className="w-full border-t border-[#3d3d3d]"></div>
+                            </div>
+                            <div className="relative flex justify-center text-sm">
+                                <span className="px-4 bg-transparent text-[#6b6b6b]">or</span>
+                            </div>
+                        </div>
+
+                        {/* Skip to Dashboard Button */}
+                        <Button
+                            onClick={handleDashboard}
+                            variant="outline"
+                            className="w-full h-11 bg-gradient-to-r from-teal-600/20 to-orange-600/20 border-[#3d3d3d] text-white hover:from-teal-600/30 hover:to-orange-600/30 hover:text-white font-medium"
+                        >
+                            Skip to Dashboard →
+                        </Button>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                        <Button
-                            onClick={handleAuth}
-                            variant="outline"
-                            className="h-11 bg-[#2b2b2b] border-[#3d3d3d] text-white hover:bg-[#3d3d3d] hover:text-white"
-                        >
-                            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-                            </svg>
-                            Google
-                        </Button>
-                        <Button
-                            onClick={handleAuth}
-                            variant="outline"
-                            className="h-11 bg-[#2b2b2b] border-[#3d3d3d] text-white hover:bg-[#3d3d3d] hover:text-white"
-                        >
-                            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                            </svg>
-                            GitHub
-                        </Button>
-                    </div>
+                    {/* Footer */}
+                    <p className="text-center text-[#6b6b6b] text-sm mt-8">
+                        By continuing, you agree to Otto&apos;s Terms of Service and Privacy Policy
+                    </p>
                 </div>
-
-                {/* Footer */}
-                <p className="text-center text-[#6b6b6b] text-sm mt-8">
-                    By continuing, you agree to Otto&apos;s Terms of Service and Privacy Policy
-                </p>
             </div>
         </div>
     )
