@@ -220,6 +220,4 @@ cd agent && python main.py dev  # Voice agent
 
 **Built with ❤️ for developers who deserve better tools**
 
-[View Demo](#) • [Report Bug](#) • [Request Feature](#)
-
 </div>
