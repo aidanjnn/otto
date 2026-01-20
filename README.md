@@ -4,7 +4,7 @@
 
 **otto** is an AI-powered voice agent that transforms how you interact with your work tools. Instead of context-switching between GitHub, Gmail, Google Calendar, and countless other platforms, just talk to otto.
 
-**[Devpost](https://devpost.com/software/ntta?ref_content=user-portfolio&ref_feature=in_progress )** 
+**[Devpost](https://devpost.com/software/ntta?ref_content=user-portfolio&ref_feature=in_progress )** waiting on google oauth to deploy.. stay tuned :) for now check out our vid!
 
 
 ---
